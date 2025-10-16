@@ -32,7 +32,7 @@ def webhook():
     if "message" in data:
         chat_id = data["message"]["chat"]["id"]
         text = data["message"].get("text", "")
-        send_message(chat_id, f"आपने कहा: {text}")
+        send_message(chat_id, f"आपने कहा: धनु ने लोकेश से। कहा: {text}")
     return "ok", 200
 
     if text == "/start":
