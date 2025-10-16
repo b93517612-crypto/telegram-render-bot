@@ -25,23 +25,6 @@ def send_message(chat_id, text):
 def home():
     return "Render Telegram Bot is running successfully on Python 3.11!"
 
-@app.route(WEBHOOK_PATH, methods=["POST"])
-def webhook():
-    if request.method != "POST":
-        abort(405)
-    update = request.get_json(force=True)
-    message = update.get("message", {})
-    chat_id = message.get("chat", {}).get("id")
-    text = message.get("text", "")
-
-    if text == "/start":
-        send_message(chat_id, "नमस्ते! मैं अब Python 3.11 पर चल रहा हूँ 🚀")
-    else:
-        send_message(chat_id, f"आपने कहा: {text}")
-    return jsonify(ok=True)
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 @app.route('/webhook', methods=['POST'])
 def webhook():
     data = request.get_json()
@@ -51,4 +34,14 @@ def webhook():
         text = data["message"].get("text", "")
         send_message(chat_id, f"आपने कहा: {text}")
     return "ok", 200
+
+    if text == "/start":
+        send_message(chat_id, "नमस्ते! मैं अब Python 3.11 पर चल रहा हूँ 🚀")
+    else:
+        send_message(chat_id, f"आपने कहा: {text}")
+    return jsonify(ok=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
     
